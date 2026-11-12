@@ -1,0 +1,7 @@
+{
+  // Live Preview (Microsoft): VS Code içinde canlı site önizlemesi
+  "livePreview.portNumber": 8644,
+  "livePreview.autoRefreshPreview": "On All Changes in Editor",
+  "livePreview.openPreviewTarget": "Embedded Preview",
+  "livePreview.defaultPreviewPath": "/index.html"
+}

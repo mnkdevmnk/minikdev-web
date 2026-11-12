@@ -1,0 +1,5 @@
+# Sitede yayınlanmasın
+tools/
+.github/
+.vscode/
+.yedek/

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Kayra · Minik.Dev</title>
+    <link>https://minikdev-web.vercel.app/</link>
+    <description>Kayra&#x27;nın blogu: ESP32, iOS, macOS ve gömülü sistem projeleri, notlar ve medya bağlantıları.</description>
+    <language>tr</language>
+    <lastBuildDate>Wed, 11 Nov 2026 09:00:00 +0300</lastBuildDate>
+    <atom:link href="https://minikdev-web.vercel.app/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>ESP32-S3&#x27;ü iPad&#x27;den derlemek</title>
+      <link>https://minikdev-web.vercel.app/yazi/esp32-ipadden-derlemek/</link>
+      <guid isPermaLink="true">https://minikdev-web.vercel.app/yazi/esp32-ipadden-derlemek/</guid>
+      <pubDate>Wed, 11 Nov 2026 09:00:00 +0300</pubDate>
+      <category>Donanım</category>
+      <description>iPadOS uygulamalara USB-seri vermiyor. Ben de kartı USB belleğe çevirdim: TinyUF2, GitHub Actions ve bir dosya kopyalama.</description>
+      <content:encoded><![CDATA[
+        <p>Sınav haftasında Mac'e erişimim olmayacak. Elimde iPad Air, harici klavye ve bir ESP32-S3-DevKitC-1 kalacak. Hedefim basitti: kodu iPad'de yazayım, kabloyu takayım, kart çalışsın. Bunun için kendi editörümü yazıyorum: <b>VSCodePad</b>, iPad'de VS Code arayüzüyle çalışan, C/C++ ve Python'u internetsiz derleyen bir uygulama.</p>
+        <p>C ve Python tarafı iPad'in içinde çözüldü. ESP32 ise beklediğimden çok daha inatçı çıktı.</p>
+
+        <h3>Duvar: iPadOS'ta seri port yok</h3>
+        <p>Bilgisayarda ESP32'ye kod atmak için <code>esptool</code> kartla USB-seri üzerinden konuşur. iPadOS bu kapıyı uygulamalara kapatıyor. WebSerial yok, uygulamanın kendi USB sürücüsünü getirmesi de serbest değil.</p>
+        <p>Tek teknik çıkış yolu <b>DriverKit</b>: M çipli iPad'lerde uygulamanın içine gömülü bir USB sürücüsü. Denedim, Xcode imzalamayı reddetti. Ücretsiz Apple ID ile açılan kişisel takımlar DriverKit iznini alamıyor. Yıllık 99 dolarlık geliştirici hesabıyla açılıyor ama kendime koyduğum şart belliydi: <b>başka cihaz yok, ücretli hesap yok.</b></p>
+
+        <h3>Çözüm: kartı USB belleğe çevirmek</h3>
+        <p>iPadOS'un sorunsuz yaptığı bir şey var: USB belleği Dosyalar uygulamasında açmak. O zaman kartı USB bellek gibi göstermem yeterliydi.</p>
+        <p>Bunu <b>TinyUF2</b> yapıyor. ESP32-S3'e kurulan küçük bir önyükleyici bu. Kart UF2 moduna girince bilgisayara (ya da iPad'e) <code>S3DKC1BOOT</code> adında bir sürücü olarak görünüyor. İçine bir <code>.uf2</code> dosyası kopyaladığında kendini o yazılımla güncelliyor. Bu durumda yükleme, kart açısından bir dosya kopyalamadan ibaret.</p>
+        <div class="note"><b>Tek seferlik bedel:</b> TinyUF2'nin karta bir kez bilgisayardan yüklenmesi gerekiyor. Boş bir ESP32'nin ROM'u sadece USB-seri konuştuğu için ilk yükleme iPad'den mümkün değil. Bunu Mac'te, kartın COM (UART) portundan bir betikle yaptım, iki dakika sürdü. Sonrasında Mac'e bir daha gerek kalmıyor.</div>
+
+        <h3>Akış</h3>
+        <ol>
+          <li><b>Yaz:</b> VSCodePad'de bir <code>.ino</code> dosyası aç.</li>
+          <li><b>Derle:</b> Arduino derleyicisi iPad'e sığmıyor. Kod <code>esp32-projeler</code> reposuna gidiyor, orada GitHub Actions <code>arduino-cli</code> ile derliyor (esp32 core 3.0.7).</li>
+          <li><b>Çevir:</b> Uygulama derlenmiş <code>.bin</code>'i indirip <code>.uf2</code>'ye çeviriyor. Bu dönüşüm ESP32-S3'ün UF2 aile kimliğiyle (<code>0xc47e5767</code>) yapılıyor.</li>
+          <li><b>Yükle:</b> Kartı UF2 moduna al (RESET, mor LED, BOOT), <code>S3DKC1BOOT</code>'u seç, dosyayı yaz. Kart yeniden başlıyor ve kod çalışıyor.</li>
+        </ol>
+        <p>Kablo istemeyen durumlar için Wi-Fi (OTA) ve BLE ile yükleme de var. Tamamen internetsiz çalışmak istersem de CircuitPython var: kart <code>CIRCUITPY</code> olarak görünüyor ve <code>code.py</code>'yi kaydetmek yetiyor.</p>
+
+        <h3>İlk deneme: "dosya kaydedilemedi"</h3>
+        <p>İlk sürümde iPadOS, karta yazarken "dosya kaydedilemedi" dedi. Harici sürücülerde bir yazma yönteminin çalışması, ötekilerin de çalışacağı anlamına gelmiyor. Sonunda uygulama üç yolu sırayla deniyor: düz POSIX yazma, <code>FileHandle</code> ve <code>NSFileCoordinator</code>. Biri tutunca duruyor.</p>
+        <p><b>11 Kasım 2026'da iPad'den kabloyla ilk yükleme başarılı oldu.</b> Mac yoktu, kartın LED'i mavi-yeşil yanıp sönüyordu.</p>
+
+        <h3>Test çizimi</h3>
+        <p>Bu kartta dahili RGB LED, belgelerde yazan GPIO38'de değil, büyük ihtimalle <b>GPIO48</b>'de. İkisini birden yakmak en garantisi. Bir de esp32 core 3.x'te <code>neopixelWrite</code> eskidi, yerine <code>rgbLedWrite</code> kullanılıyor.</p>
+        <pre><code>// ESP32-S3-DevKitC-1 · renk döndüren LED
+const int LEDLER[] = {48, 38};   // kart sürümüne göre biri yanar
+
+void renk(uint8_t r, uint8_t g, uint8_t b) {
+  for (int pin : LEDLER) rgbLedWrite(pin, r, g, b);
+}
+
+void setup() {
+  Serial.begin(115200);
+}
+
+void loop() {
+  renk(0, 40, 40);  delay(400);   // mavi-yeşil
+  renk(40, 0, 20);  delay(400);   // mor
+  renk(0, 0, 0);    delay(400);   // sönük
+  Serial.println("merhaba iPad");
+}</code></pre>
+
+        <h3>Hâlâ açık olanlar</h3>
+        <ul>
+          <li>UF2 yazımından sonraki yazılımsal yeniden başlatmada USB-seri görünmüyor, RST'ye basınca geliyor. iPad'de seri kullanmadığım için şimdilik dert değil.</li>
+          <li>Yaz, GitHub'da derle, USB'den yükle zincirinin tamamı daha pürüzsüz değil. Derleme başarılı oluyor ama uçtan uca akışı cilalamam gerekiyor. Bir sonraki günlükte buna bakacağım.</li>
+          <li>Ücretli hesap alırsam DriverKit açılıyor. O zaman boş kartlar da (klasik ESP32 dahil) iPad'den doğrudan programlanabilir.</li>
+        </ul>
+        <p>Özetle: iPad bir ESP32'yi programlayamaz, ama bir dosyayı USB belleğe kopyalayabilir. Gerisi kartı USB bellek gibi davranmaya ikna etmekten ibaret.</p>]]></content:encoded>
+    </item>
+  </channel>
+</rss>

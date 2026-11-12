@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kayra · Minik.Dev</title>
+<meta name="description" content="Kayra'nın blogu: ESP32, iOS, macOS ve gömülü sistem projeleri, notlar ve medya bağlantıları.">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<!-- OG:BASLA (tools/yayin.py yazar) -->
+<link rel="canonical" href="https://minikdev-web.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kayra · Minik.Dev">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:title" content="Kayra · Minik.Dev">
+<meta property="og:description" content="Kayra&#x27;nın blogu: ESP32, iOS, macOS ve gömülü sistem projeleri, notlar ve medya bağlantıları.">
+<meta property="og:url" content="https://minikdev-web.vercel.app/">
+<meta property="og:image" content="https://minikdev-web.vercel.app/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kayra · Minik.Dev">
+<meta name="twitter:description" content="Kayra&#x27;nın blogu: ESP32, iOS, macOS ve gömülü sistem projeleri, notlar ve medya bağlantıları.">
+<meta name="twitter:image" content="https://minikdev-web.vercel.app/img/og.png">
+<meta name="theme-color" content="#050505">
+<link rel="alternate" type="application/rss+xml" title="Kayra · Minik.Dev" href="https://minikdev-web.vercel.app/feed.xml">
+<!-- OG:BITIR -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<!-- JS varsa: ajanlar sayfayı taslağa çevirene kadar gizle. JS yoksa sayfa normal görünür.
+     Bir hata olursa 8 sn sonra her şey yine de görünür. -->
+<script>document.documentElement.classList.add('boot');setTimeout(()=>document.documentElement.classList.remove('boot'),8000)</script>
+</head>
+<body>
+
+<!-- Sol üst: menü düğmesi + logo -->
+<div class="nav">
+  <button class="nav-toggle" id="sideOpen" type="button" aria-controls="side" aria-expanded="false" aria-label="Menüyü aç">
+    <i></i><i></i><i></i>
+  </button>
+  <a class="logo" href="#top"><b>K</b><span>KAYRA.</span></a>
+</div>
+
+<!-- Soldan kayan menü (sol kenardan sağa kaydırınca da açılır) -->
+<div class="side-scrim" id="sideScrim"></div>
+<aside class="side" id="side" aria-label="Ana menü" inert>
+  <div class="side-head">
+    <a class="logo" href="#top"><b>K</b><span>KAYRA.</span></a>
+    <button class="side-close" id="sideClose" type="button" aria-label="Menüyü kapat">✕</button>
+  </div>
+  <p class="side-label">// MENÜ</p>
+  <nav>
+    <ul>
+      <li><a href="#top"><span>00</span>Giriş</a></li>
+      <li><a href="#hakkimda"><span>01</span>Hakkımda</a></li>
+      <li><a href="#yazilar"><span>02</span>Yazılar</a></li>
+      <li><a href="#projeler"><span>03</span>Projeler</a></li>
+      <li><a href="#medya"><span>04</span>Medya</a></li>
+      <li><a href="#iletisim"><span>05</span>İletişim</a></li>
+    </ul>
+  </nav>
+
+  <!-- Yönetici girişi (js/yonetici.js) -->
+  <section class="side-admin" id="adminBox" aria-label="Yönetici girişi">
+    <p class="side-label">// YÖNETİCİ</p>
+    <form class="admin-form" id="adminForm" autocomplete="on">
+      <label><span>Kullanıcı adı</span><input name="kullanici" autocomplete="username" required spellcheck="false" autocapitalize="off"></label>
+      <label><span>Şifre</span><input name="sifre" type="password" autocomplete="current-password" required></label>
+      <button class="btn" type="submit">GİRİŞ YAP →</button>
+      <p class="admin-err" id="adminErr" role="alert"></p>
+    </form>
+    <div class="admin-in" id="adminIn" hidden>
+      <p class="admin-who"><b>admin</b> olarak girildi</p>
+      <button class="btn" type="button" id="adminEdit">İÇERİĞİ DÜZENLE</button>
+      <button class="btn ghost" type="button" id="adminOut">ÇIKIŞ</button>
+    </div>
+  </section>
+
+  <div class="side-foot">
+    <span class="nav-status"><span id="navStatus">Taslak</span></span>
+    <span class="side-hint">ESC · kapat</span>
+  </div>
+</aside>
+
+<main id="top">
+
+  <!-- HERO -->
+  <header class="hero">
+    <h2 class="backdrop" id="backdrop" aria-hidden="true"></h2>
+    <figure class="portrait" id="portrait">
+      <div class="portrait-ph"><b>K</b><span>FOTOĞRAF<br>img/kayra.jpg</span></div>
+      <figcaption class="photo-badge" id="photoBadge"></figcaption>
+    </figure>
+
+    <div class="wrap hero-text">
+      <p class="hello" id="hello"></p>
+      <h1 class="name" id="name"></h1>
+      <p class="chip-role" id="role"></p>
+      <p class="lead" id="lead"></p>
+      <div class="actions">
+        <a class="btn" href="#yazilar">YAZILARI OKU →</a>
+        <a class="btn ghost" href="#medya">MEDYA BAĞLANTILARI</a>
+      </div>
+
+      <div class="stats" id="stats"></div>
+      <ol class="now" id="now"></ol>
+      <ul class="chips" id="stack"></ul>
+    </div>
+  </header>
+
+  <!-- 01 HAKKIMDA -->
+  <section class="wrap sec" id="hakkimda">
+    <div class="sec-meta"><span>// 01.00 SEC_HAKKIMDA</span></div>
+    <p class="eyebrow" id="aboutEyebrow"></p>
+    <h2 class="sec-title" id="aboutTitle"></h2>
+    <div class="about card rv">
+      <div class="about-text" id="aboutText"></div>
+      <ol class="principles" id="principles"></ol>
+    </div>
+  </section>
+
+  <!-- 02 YAZILAR -->
+  <section class="wrap sec" id="yazilar">
+    <div class="sec-meta"><span>// 02.00 SEC_YAZILAR</span></div>
+    <p class="eyebrow">BLOG</p>
+    <h2 class="sec-title">Son Yazılar</h2>
+    <p class="sec-lead">Proje günlükleri, hata kayıtları ve ders notları.</p>
+
+    <div class="kaydir rv" id="postKaydir" role="region" aria-roledescription="carousel" aria-label="Yazılar">
+      <div class="kaydir-iz" tabindex="-1"></div>
+      <div class="kaydir-alt" hidden>
+        <button type="button" class="kaydir-ok" data-yon="-1" aria-label="Önceki">←</button>
+        <div class="kaydir-nokta"></div>
+        <button type="button" class="kaydir-ok" data-yon="1" aria-label="Sonraki">→</button>
+      </div>
+    </div>
+
+    <div class="filters" id="postFilters" role="tablist" aria-label="Yazı kategorileri"></div>
+    <div class="post-grid" id="postGrid"></div>
+  </section>
+
+  <!-- 03 PROJELER -->
+  <section class="wrap sec" id="projeler">
+    <div class="sec-meta"><span>// 03.00 SEC_PROJELER</span></div>
+    <p class="eyebrow">ÇALIŞMALAR</p>
+    <h2 class="sec-title">Projeler</h2>
+    <p class="sec-lead">Kurduğum, kurmakta olduğum ve rafa kaldırdığım sistemler.</p>
+
+    <div class="kaydir rv" id="projKaydir" role="region" aria-roledescription="carousel" aria-label="Projeler">
+      <div class="kaydir-iz" tabindex="-1"><article class="flagship card" id="flagship"></article></div>
+      <div class="kaydir-alt" hidden>
+        <button type="button" class="kaydir-ok" data-yon="-1" aria-label="Önceki">←</button>
+        <div class="kaydir-nokta"></div>
+        <button type="button" class="kaydir-ok" data-yon="1" aria-label="Sonraki">→</button>
+      </div>
+    </div>
+
+    <div class="gh-strip" id="ghStrip"></div>
+    <div class="filters" id="projFilters" role="tablist" aria-label="Proje kategorileri"></div>
+    <div class="proj-grid" id="projGrid"></div>
+  </section>
+
+  <!-- 04 AJAN HATTI -->
+  <section class="wrap sec" id="hat">
+    <div class="sec-meta"><span>// 04.00 SEC_AJAN_HATTI</span></div>
+    <p class="eyebrow">NASIL YAZIYORUM</p>
+    <h2 class="sec-title">Ajan Hattı</h2>
+    <p class="sec-lead">Bir yazı dört ajandan geçerek yayına hazırlanıyor. Son kararı ben veriyorum.</p>
+
+    <div class="pipe card rv">
+      <ol class="agents" id="agents"></ol>
+      <div class="term">
+        <div class="term-bar"><i></i><i></i><i></i><span>hat.log</span><span class="term-live">● CANLI</span></div>
+        <ol class="term-body" id="termBody" aria-live="off"></ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 MEDYA -->
+  <section class="wrap sec" id="medya">
+    <div class="sec-meta"><span>// 05.00 SEC_MEDYA</span></div>
+    <p class="eyebrow">BAĞLANTILAR</p>
+    <h2 class="sec-title">Medya</h2>
+    <p class="sec-lead">Beni başka nerelerde bulabilirsin.</p>
+    <div class="media-grid" id="mediaGrid"></div>
+  </section>
+
+  <!-- İLETİŞİM -->
+  <section class="wrap sec contact" id="iletisim">
+    <p class="eyebrow" id="contactEyebrow"></p>
+    <h2 class="contact-title" id="contactTitle"></h2>
+    <p class="sec-lead" id="contactText"></p>
+    <div class="contact-row">
+      <span class="mail" id="mail"></span>
+      <button class="btn" id="copyMail" type="button">E-POSTAYI KOPYALA</button>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap foot">
+  <span>© <span id="year"></span> Kayra · Minik.Dev</span>
+  <span>Saf HTML, CSS ve JS. Build yok.</span>
+</footer>
+
+<!-- Yazı okuyucu -->
+<div class="reader" id="reader" role="dialog" aria-modal="true" aria-labelledby="readerTitle" hidden>
+  <div class="reader-inner">
+    <button class="reader-close" id="readerClose" type="button" aria-label="Kapat">← GERİ</button>
+    <article id="readerBody"></article>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script src="js/content.js"></script>
+<script src="js/github-data.js"></script>
+<script src="js/app.js"></script>
+<script src="js/ajan-sozleri.js"></script>
+<script src="js/ajanlar.js"></script>
+<script src="js/yonetici.js"></script>
+<script src="js/canli.js"></script>
+</body>
+</html>

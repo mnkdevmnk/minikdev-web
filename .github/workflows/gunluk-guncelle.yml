@@ -1,0 +1,63 @@
+# Her gün GitHub sayılarını (github-data.js) ve yayın dosyalarını (yazı sayfaları,
+# feed.xml, sitemap.xml) yeniler; değişiklik varsa main'e commit atar. Vercel push'u görüp yayınlar.
+#
+# Kurulum (bir kere):
+#   1. github.com/settings/personal-access-tokens → Fine-grained token
+#      Repository access: All repositories · Permissions: Contents → Read-only, Metadata → Read-only
+#   2. Bu repo › Settings › Secrets and variables › Actions › New repository secret
+#      Ad: GH_SYNC_TOKEN   Değer: token
+#   3. (İsteğe bağlı) Variables sekmesinde SITE_URL = https://senin-adresin.vercel.app
+# Token yoksa iş yine çalışır ama private commit sayıları güncellenmez.
+
+name: Günlük güncelleme
+
+on:
+  schedule:
+    - cron: "0 3 * * *"   # her gün 06:00 (TR)
+  workflow_dispatch: {}    # Actions sekmesinden elle de çalıştırılabilir
+  push:
+    branches: [main]
+    paths: ["js/content.js"]   # yeni yazı eklenince sayfaları hemen üret
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gunluk-guncelle
+  cancel-in-progress: false
+
+jobs:
+  guncelle:
+    runs-on: ubuntu-latest
+    env:
+      TOKEN_VAR: ${{ secrets.GH_SYNC_TOKEN != '' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: GitHub sayıları
+        if: env.TOKEN_VAR == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GH_SYNC_TOKEN }}
+        run: python3 tools/github-sync.py
+
+      - name: Yayın dosyaları
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
+        run: |
+          if [ -z "$SITE_URL" ]; then unset SITE_URL; fi
+          python3 tools/yayin.py
+
+      - name: Değişiklik varsa commit at
+        run: |
+          git add -A js/github-data.js yazi feed.xml sitemap.xml robots.txt index.html
+          if git diff --cached --quiet; then
+            echo "Değişiklik yok."
+            exit 0
+          fi
+          git -c user.name="Kayra" -c user.email="mnkdevmnk@users.noreply.github.com" \
+            commit -m "Otomatik: GitHub sayıları ve yayın dosyaları"
+          git push

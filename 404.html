@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>404 · Kayra · Minik.Dev</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+<style>
+  .nf{position:relative;min-height:100vh;min-height:100svh;display:grid;place-items:center;overflow:hidden;padding:40px 20px;text-align:center}
+  .nf .backdrop{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);margin:0;font-size:clamp(180px,42vw,520px)}
+  .nf-in{position:relative;z-index:1;max-width:520px}
+  .nf-tag{font:600 12px var(--mono);letter-spacing:.16em;color:var(--red)}
+  .nf h1{display:inline-block;margin:14px 0 18px;padding:6px 14px 0;background:var(--red);color:var(--bg);font:400 clamp(48px,9vw,84px)/.9 var(--display);letter-spacing:.02em}
+  .nf p{color:var(--muted);margin:0 0 26px}
+  .nf code{font:13px var(--mono);color:var(--text);word-break:break-all}
+  .nf .actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+</style>
+</head>
+<body>
+<main class="nf">
+  <h2 class="backdrop" aria-hidden="true">404</h2>
+  <div class="nf-in">
+    <p class="nf-tag">// HATA_404 · SAYFA_YOK</p>
+    <h1>SAYFA YOK</h1>
+    <p>Aradığın sayfa taşınmış ya da hiç olmamış olabilir.<br><code id="yol"></code></p>
+    <div class="actions">
+      <a class="btn" href="/">ANA SAYFA →</a>
+      <a class="btn ghost" href="/#yazilar">YAZILAR</a>
+    </div>
+  </div>
+</main>
+<script>document.getElementById("yol").textContent = location.pathname;</script>
+</body>
+</html>
