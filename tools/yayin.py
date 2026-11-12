@@ -94,7 +94,7 @@ def og_blogu(baslik, aciklama, url, tur="website", ekstra=""):
 <meta name="twitter:title" content="{esc(baslik)}">
 <meta name="twitter:description" content="{esc(aciklama)}">
 <meta name="twitter:image" content="{SITE_URL}/img/og.png">
-<meta name="theme-color" content="#050505">
+<meta name="theme-color" content="#111217">
 <link rel="alternate" type="application/rss+xml" title="{esc(SITE_ADI)}" href="{SITE_URL}/feed.xml">{ekstra}"""
 
 

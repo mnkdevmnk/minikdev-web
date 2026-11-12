@@ -164,19 +164,19 @@
     <svg class="esp il" viewBox="0 0 440 190" aria-hidden="true">
       <rect class="esp-pcb" x="18" y="10" width="404" height="170" rx="10"/>
       <path class="esp-trace" d="M18 38 H422"/>
-      <circle cx="36" cy="24" r="4" fill="#ef4444"/><circle cx="50" cy="24" r="4" fill="#fbbf24"/><circle class="esp-pwr" cx="64" cy="24" r="4"/>
+      <circle cx="36" cy="24" r="4" fill="#EF233C"/><circle cx="50" cy="24" r="4" fill="#fbbf24"/><circle class="esp-pwr" cx="64" cy="24" r="4"/>
       <rect class="esp-ic" x="96" y="17" width="210" height="14" rx="7"/><text class="esp-lbl" x="108" y="27">localhost:8643</text>
       <text class="esp-lbl" x="34" y="58">// 00.00 SEC_GIRIS</text>
-      <rect x="34" y="66" width="168" height="34" fill="#ef4444"/><text class="il-ad" x="42" y="94">KAYRA.</text>
+      <rect x="34" y="66" width="168" height="34" fill="#EF233C"/><text class="il-ad" x="42" y="94">KAYRA.</text>
       <rect class="il-satir" x="34" y="110" width="210" height="6" rx="3"/><rect class="il-satir" x="34" y="122" width="176" height="6" rx="3"/>
       <rect class="il-satir" x="34" y="134" width="196" height="6" rx="3"/>
       <rect class="esp-mod" x="272" y="54" width="132" height="110" rx="4"/>
       <rect class="il-satir k" x="282" y="64" width="112" height="56" rx="2"/>
       <path class="esp-sig" d="M34 156 H404"/><path class="esp-trace" d="M34 156 H404"/>
       <rect class="il-satir" x="282" y="130" width="90" height="6" rx="3"/><rect class="il-satir" x="282" y="142" width="64" height="6" rx="3"/>
-      <g class="il-imlec a"><path d="M0 0l11 4-5 2-2 5z" fill="#f472b6" stroke="#050505"/><rect x="9" y="9" width="22" height="9" rx="2" fill="#f472b6"/></g>
-      <g class="il-imlec b"><path d="M0 0l11 4-5 2-2 5z" fill="#60a5fa" stroke="#050505"/><rect x="9" y="9" width="22" height="9" rx="2" fill="#60a5fa"/></g>
-      <g class="il-imlec c"><path d="M0 0l11 4-5 2-2 5z" fill="#fbbf24" stroke="#050505"/><rect x="9" y="9" width="22" height="9" rx="2" fill="#fbbf24"/></g>
+      <g class="il-imlec a"><path d="M0 0l11 4-5 2-2 5z" fill="#f472b6" stroke="#111217"/><rect x="9" y="9" width="22" height="9" rx="2" fill="#f472b6"/></g>
+      <g class="il-imlec b"><path d="M0 0l11 4-5 2-2 5z" fill="#60a5fa" stroke="#111217"/><rect x="9" y="9" width="22" height="9" rx="2" fill="#60a5fa"/></g>
+      <g class="il-imlec c"><path d="M0 0l11 4-5 2-2 5z" fill="#fbbf24" stroke="#111217"/><rect x="9" y="9" width="22" height="9" rx="2" fill="#fbbf24"/></g>
     </svg>`,
     // VSCodePad: iPad'de editör, renkli kod satırları, yanıp sönen imleç; USB-C'den karta sinyal
     ipad: () => `
@@ -225,7 +225,7 @@
       <rect class="esp-pcb" x="20" y="22" width="254" height="146" rx="6"/>
       ${delik(30)}${delik(153)}
       ${[0, 1, 2].map((i) => `<rect class="esp-mod" x="${32 + i * 80}" y="48" width="70" height="94" rx="3"/>`).join("")}
-      <path d="M58 82 l22 13 -22 13z" fill="#ef4444"/>
+      <path d="M58 82 l22 13 -22 13z" fill="#EF233C"/>
       <rect class="il-satir k" x="122" y="64" width="50" height="40" rx="2"/><rect class="il-satir" x="202" y="70" width="50" height="34" rx="2"/>
       <text class="esp-lbl" x="40" y="136">00:12</text><text class="esp-lbl" x="120" y="136">00:24</text><text class="esp-lbl" x="200" y="136">00:36</text>
       <path class="esp-trace" d="M274 95 H312"/><path class="esp-sig" d="M274 95 H312"/>
