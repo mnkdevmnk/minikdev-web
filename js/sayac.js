@@ -5,7 +5,7 @@
    - Yönetici girişi yapılmış tarayıcı kendini saymaz (localStorage: sayacBeniSayma).
    - Panel: js/istatistik.js */
 (() => {
-  const UC = "/api/sayac";
+  const UC = "/api/sayac/";
   const yerelHost = ["localhost", "127.0.0.1"].includes(location.hostname);
   if (yerelHost && location.port === "8644") return; // VS Code Live Preview: ucu yok
   if (navigator.webdriver) return;

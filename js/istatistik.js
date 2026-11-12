@@ -5,7 +5,7 @@
      CANLI = yayındaki sitenin sayacı.
    Anahtar girişte üretilir (yonetici.js › sayacAnahtar). */
 (() => {
-  const CANLI = "https://minikdev-web.vercel.app/api/sayac";
+  const CANLI = "https://minikdev-web.vercel.app/api/sayac/";
   const yerel = ["localhost", "127.0.0.1"].includes(location.hostname) && location.port !== "8644";
   const btn = document.getElementById("adminStat");
   if (!btn || document.getElementById("adminBox").hidden) return;
@@ -97,7 +97,7 @@
 
   async function yukle() {
     durumYaz("yükleniyor…");
-    const url = kaynak === "yerel" ? "/api/sayac" : (yerel ? CANLI : "/api/sayac");
+    const url = kaynak === "yerel" ? "/api/sayac/" : (yerel ? CANLI : "/api/sayac/");
     const anahtar = ss("sayacAnahtar");
     if (kaynak === "canli" && !anahtar) {
       govde.innerHTML = `<div class="istat-bos"><p>Anahtar yok: <b>ÇIKIŞ</b> yapıp tekrar giriş yap.</p></div>`;

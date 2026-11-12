@@ -67,7 +67,7 @@ class Isleyici(http.server.SimpleHTTPRequestHandler):
         self.wfile.write(govde)
 
     def do_GET(self):
-        if self.path.split("?")[0] == "/api/sayac":
+        if self.path.split("?")[0].rstrip("/") == "/api/sayac":
             return self._sayac_ozet()
         return super().do_GET()
 
@@ -124,7 +124,7 @@ class Isleyici(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
 
     def do_POST(self):
-        if self.path == "/api/sayac":
+        if self.path.split("?")[0].rstrip("/") == "/api/sayac":
             return self._sayac_kaydet()
         if self.path != "/__kaydet":
             return self._json(404, {"hata": "yok"})
