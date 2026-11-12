@@ -1,15 +1,28 @@
 /* OTOMATİK ÜRETİLDİ: tools/github-sync.py. Elle düzenleme, betiği tekrar çalıştır. */
 window.GITHUB = {
   "user": "mnkdevmnk",
-  "generatedAt": "2026-11-12T00:47:39+00:00",
+  "generatedAt": "2026-11-12T01:27:19+00:00",
   "totals": {
-    "commits": 123,
-    "publicCommits": 15,
-    "privateCommits": 108,
-    "publicRepos": 2,
-    "privateRepos": 7
+    "commits": 135,
+    "publicCommits": 17,
+    "privateCommits": 118,
+    "publicRepos": 3,
+    "privateRepos": 8
   },
   "repos": [
+    {
+      "name": "minikdev-web",
+      "description": "Kayra · Minik.Dev — kişisel blog ve proje sitesi",
+      "language": "JavaScript",
+      "topics": [],
+      "stars": 0,
+      "pushedAt": "2026-11-12T01:26:48Z",
+      "createdAt": "2026-11-12T01:10:56Z",
+      "homepage": "",
+      "url": "https://github.com/mnkdevmnk/minikdev-web",
+      "archived": false,
+      "commits": 2
+    },
     {
       "name": "rihtim-macos",
       "description": "Notch island, Dock previews and Stats-style menu bar modules for macOS, in one app. English, Türkçe, Deutsch.",
@@ -47,7 +60,7 @@ window.GITHUB = {
     }
   ],
   "son": {
-    "repo": "web-portfolio",
-    "pushedAt": "2026-11-12T00:40:00Z"
+    "repo": "gizli",
+    "pushedAt": "2026-11-12T01:26:48Z"
   }
 };

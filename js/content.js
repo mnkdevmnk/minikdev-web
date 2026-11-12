@@ -149,7 +149,8 @@ void loop() {
        repo: "ad" yazarsan o public repoyla birleşir: senin yazdığın metin kalır,
        GitHub'dan dil, commit sayısı, son güncelleme ve link eklenir. Aynı repo ikinci kez kart olmaz. */
     list: [
-      { title: "Rıhtım", repo: "rihtim-macos", cat: "macOS", text: "Çentiği, Dock'u ve menü çubuğunu tek uygulamada topladım. Dock'u bozmadan üstüne pencere önizlemesi, ⌘⇥ değiştirici, pencere yaslama ve Stats tarzı menü modülleri ekliyor.", tags: ["Swift"], status: "wip" }
+      { title: "Rıhtım", repo: "rihtim-macos", cat: "macOS", text: "Çentiği, Dock'u ve menü çubuğunu tek uygulamada topladım. Dock'u bozmadan üstüne pencere önizlemesi, ⌘⇥ değiştirici, pencere yaslama ve Stats tarzı menü modülleri ekliyor.", tags: ["Swift"], status: "wip" },
+      { title: "Bu site", repo: "minikdev-web", cat: "Web", text: "Gözünün önünde 17 ajanın kurduğu kişisel sitem. Saf HTML, CSS ve JS.", tags: ["HTML", "CSS", "JS"] }
     ]
   },
 
