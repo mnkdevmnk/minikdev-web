@@ -2,3 +2,5 @@
 __pycache__/
 *.pyc
 .yedek/
+.sayac.json
+.sayac.json.tmp

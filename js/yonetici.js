@@ -62,12 +62,15 @@
     hata.textContent = "";
     form.reset();
     ss.koy("yonetici", "1");
+    // İstatistik paneli için sunucuya gösterilecek anahtar (api/sayac.js › ISTATISTIK_ANAHTARI)
+    ss.koy("sayacAnahtar", await ozet(`sayac|${k}:${s}`));
+    try { localStorage.setItem("sayacBeniSayma", "1"); } catch {} // yöneticinin tarayıcısı sayılmaz
     goster();
     $("#adminEdit").focus();
   });
 
   $("#adminOut").addEventListener("click", () => {
-    ss.koy("yonetici", null); ss.koy("editorAcik", null);
+    ss.koy("yonetici", null); ss.koy("editorAcik", null); ss.koy("sayacAnahtar", null);
     editorKapa(true);
     goster();
     form.kullanici.focus();

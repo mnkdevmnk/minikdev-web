@@ -144,6 +144,7 @@ def yazi_sayfasi(p):
     </div>
   </div>
 </div>
+<script src="/js/sayac.js"></script>
 </body>
 </html>
 """
