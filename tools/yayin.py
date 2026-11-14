@@ -10,7 +10,7 @@ Yayın dosyalarını üretir. js/content.js'i okur, şunları yazar:
   index.html               Sadece <!-- OG:BASLA --> ... <!-- OG:BITIR --> arası (site adresi).
 
 Site adresi aşağıdaki SITE_URL'de. Vercel adresi belli olunca orayı değiştir,
-ya da ortam değişkeniyle ver:  SITE_URL=https://ornek.vercel.app python3 tools/yayin.py
+ya da ortam değişkeniyle ver:  SITE_URL=https://ornek.dev python3 tools/yayin.py
 
 content.js düz JS olduğu için çalıştırılarak okunur: varsa `node`, yoksa macOS'taki
 `osascript -l JavaScript` kullanılır. Ek kurulum gerekmez.
@@ -20,7 +20,7 @@ content.js düz JS olduğu için çalıştırılarak okunur: varsa `node`, yoksa
 """
 import datetime, email.utils, html, json, os, pathlib, re, shutil, subprocess, sys, tempfile
 
-SITE_URL = os.environ.get("SITE_URL", "https://minikdev-web.vercel.app").rstrip("/")
+SITE_URL = os.environ.get("SITE_URL", "https://minikdev.dev").rstrip("/")
 SITE_ADI = "Kayra · Minik.Dev"
 ACIKLAMA = "Kayra'nın blogu: ESP32, iOS, macOS ve gömülü sistem projeleri, notlar ve medya bağlantıları."
 

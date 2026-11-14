@@ -6,7 +6,7 @@
 #      Repository access: All repositories · Permissions: Contents → Read-only, Metadata → Read-only
 #   2. Bu repo › Settings › Secrets and variables › Actions › New repository secret
 #      Ad: GH_SYNC_TOKEN   Değer: token
-#   3. (İsteğe bağlı) Variables sekmesinde SITE_URL = https://senin-adresin.vercel.app
+#   3. (İsteğe bağlı) Variables sekmesinde SITE_URL = https://minikdev.dev
 # Token yoksa iş yine çalışır ama private commit sayıları güncellenmez.
 
 name: Günlük güncelleme

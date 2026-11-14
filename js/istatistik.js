@@ -5,7 +5,7 @@
      CANLI = yayındaki sitenin sayacı.
    Anahtar girişte üretilir (yonetici.js › sayacAnahtar). */
 (() => {
-  const CANLI = "https://minikdev-web.vercel.app/api/sayac/";
+  const CANLI = "https://minikdev.dev/api/sayac/";
   const yerel = ["localhost", "127.0.0.1"].includes(location.hostname) && location.port !== "8644";
   const btn = document.getElementById("adminStat");
   if (!btn || document.getElementById("adminBox").hidden) return;
