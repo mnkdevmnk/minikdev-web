@@ -4,3 +4,4 @@ __pycache__/
 .yedek/
 .sayac.json
 .sayac.json.tmp
+dist/
